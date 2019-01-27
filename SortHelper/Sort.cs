@@ -55,10 +55,35 @@ namespace SortHelper
             b = swapHolder;
         }
 
-
-        public T[] InsertionSort()
+        /// <summary>
+        /// Subprogram to sort an array using insertion sort - O(n^2)
+        /// </summary>
+        /// <param name="array">The array to be sorted</param>
+        /// <param name="comparator">The comparator to determine which elements take priority</param>
+        /// <returns>The sorted array</returns>
+        public T[] InsertionSort(T[] array, Comparator comparator)
         {
-            throw new NotImplementedException();
+            // The selected element and the insertion index
+            T selectedElement = default(T);
+            int insertionIndex;
+
+            // Looping through the array and selecting the "unsorted" element
+            for (int i = 1; i < array.Length; ++i)
+            {
+                selectedElement = array[i];
+
+                // Shifting elements down while the selected element has priority
+                for (insertionIndex = i; insertionIndex > 0 && comparator(selectedElement, array[insertionIndex - 1]); --insertionIndex)
+                {
+                    array[insertionIndex] = array[insertionIndex - 1];
+                }
+
+                // Assiging the selected element in the appropriate position
+                array[insertionIndex] = selectedElement;
+            }
+
+            // Returning the sorted array
+            return array;
         }
 
         public T[] QuickSort()
